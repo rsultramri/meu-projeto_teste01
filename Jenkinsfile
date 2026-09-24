@@ -1,24 +1,23 @@
 pipeline {
     agent {
         docker {
-            image 'node:18-alpine'
+            image 'python:3.11-alpine'
         }
     }
-
     stages {
         stage('Install') {
             steps {
-                sh 'npm install'
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'python -m pytest'
             }
         }
-        stage('Build') {
+        stage('Run') {
             steps {
-                sh 'npm run build'
+                sh 'python fuzzy_artmap.py'
             }
         }
     }
